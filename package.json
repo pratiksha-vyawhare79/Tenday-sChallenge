@@ -1,0 +1,23 @@
+{
+  "name": "studentpage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axois": "^0.0.1-security",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.1",
+    "react-router-dom": "^7.9.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "description": ""
+}

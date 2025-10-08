@@ -1,104 +1,63 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-  //  Store form values
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  //  Store error messages
-  const [errors, setErrors] = useState({});
-
-  //  Update form values when user types
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  //  Basic, easy-to-understand validation
-  const validate = () => {
-    const newErrors = {};
-
-    //  Email Validation
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Enter a valid email";
-    }
-
-    //  Password Validation
-    if (!formData.password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
-    }
-
-    setErrors(newErrors);
-
-    //  Return true if no errors
-    return Object.keys(newErrors).length === 0;
-  };
-
-  //  Submit the form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      alert("Please enter both email and password");
+      return;
+    }
 
-    if (validate()) {
-      // Here you can send data to backend
-      console.log("Login Data:", formData);
-
-      alert("Login Successful ");
-
-      // Clear the form after success
-      setFormData({
-        email: "",
-        password: "",
+    try {
+      const res = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message);
+        navigate("/");
+      } else {
+        alert(data.error);
+      }
+    } catch (err) {
+      alert("Network error: " + err.message);
     }
   };
 
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>Teacher Login</h2>
 
-        {/*  Email Field */}
-        <label>Email:</label>
         <input
           type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Enter your email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        {errors.email && <p className="error">{errors.email}</p>}
 
-        {/*  Password Field */}
-        <label>Password:</label>
         <input
           type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter your password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {errors.password && <p className="error">{errors.password}</p>}
 
-        {/*  Submit Button */}
         <button type="submit">Login</button>
 
-        {/*  Redirect Link */}
-        <p className="redirect-text">
-          Don't have an account?{" "}
-          <Link to="/" className="link-text">
-            Sign Up
-          </Link>
-        </p>
+        <div className="redirect-text">
+          Don't have an account? <a href="/SignIn">Sign Up</a>
+        </div>
       </form>
     </div>
   );

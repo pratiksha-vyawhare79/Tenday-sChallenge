@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.signin-form {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.signin-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff5e62;
+  font-size: 24px;
+}
+
+.signin-form label {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+.signin-form input,
+.signin-form select {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.signin-form input:focus,
+.signin-form select:focus {
+  border-color: #ff5e62;
+}
+
+.gender-section {
+  margin-top: 10px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.input-error {
+  border-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.signin-form button {
+  margin-top: 15px;
+  padding: 10px;
+  background: linear-gradient(135deg, #ff5e62, #ff9966);
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.signin-form button:hover {
+  background: linear-gradient(135deg, #e94e4f, #ff7f50);
 }
 
-@keyframes App-logo-spin {
+.redirect-text {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+.link-text {
+  color: #ff5e62;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+@keyframes slideIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(-15px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }

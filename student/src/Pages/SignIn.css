@@ -1,192 +1,207 @@
-/* Animated Gradient Background */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(-45deg, #6a11cb, #2575fc, #6a11cb, #2575fc);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+/* 🌸 Container */
+.signin-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffb88c, #de6262); /* Peach gradient */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  animation: fadeIn 0.8s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes gradientBG {
+/* 📝 Title */
+.signin-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: slideDown 0.8s ease forwards;
+  text-align: center;
+}
+
+/* 📋 Form container */
+.signin-form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: slideUp 0.8s ease forwards;
+}
+
+/* ✍ Input and select styling */
+.signin-form input,
+.signin-form select {
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #ff9a76;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.signin-form input:focus,
+.signin-form select:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 6px rgba(255, 126, 95, 0.5);
+}
+
+/* 🚀 Submit Button */
+.signin-btn {
+  background-color: #ff7e5f; /* Peach orange */
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.signin-btn:hover {
+  background-color: #de6262;
+  transform: translateY(-2px);
+}
+
+/* 💬 Message display */
+.signin-message {
+  margin-top: 15px;
+  font-size: 15px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+/* 🔗 Redirect text */
+.redirect-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.link-text {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.link-text:hover {
+  color: #ffe2d1;
+}
+
+/* 🧑 Teacher list */
+.signin-container h3 {
+  color: #ffffff;
+  margin-top: 25px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.signin-container ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.signin-container ul li {
+  background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.4s ease;
+}
+
+/* 🌟 Background floating animation */
+.signin-container::before,
+.signin-container::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  animation: float 8s infinite ease-in-out alternate;
+}
+
+.signin-container::before {
+  width: 200px;
+  height: 200px;
+  top: 15%;
+  left: 20%;
+}
+
+.signin-container::after {
+  width: 150px;
+  height: 150px;
+  bottom: 15%;
+  right: 15%;
+}
+
+@keyframes float {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    transform: translateY(0px) translateX(0px);
   }
   100% {
-    background-position: 0% 50%;
+    transform: translateY(-20px) translateX(20px);
   }
 }
 
-/* Container fade-in with translucent background */
-.signin-container {
-  max-width: 480px;
-  margin: 3rem auto;
-  padding: 2rem 3rem;
-  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  animation: fadeInUp 0.8s ease forwards;
-  opacity: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ✨ Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .signin-title {
+    font-size: 24px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .signin-form {
+    padding: 20px;
   }
-}
 
-/* Header */
-h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-/* Form Fields */
-form div {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.35rem;
-  color: #555;
-  font-weight: 600;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"] {
-  width: 100%;
-  padding: 0.55rem 0.75rem;
-  border: 1.8px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="number"]:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
-}
-
-/* Radio buttons */
-input[type="radio"] {
-  margin-right: 0.25rem;
-  cursor: pointer;
-}
-
-label > input[type="radio"] {
-  margin-right: 0.5rem;
-}
-
-/* Error messages */
-.error {
-  margin-top: 0.25rem;
-  font-size: 0.9rem;
-  color: #e74c3c;
-  font-weight: 600;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-/* Success message */
-.success {
-  margin-top: 1.5rem;
-  color: #28a745;
-  font-weight: 700;
-  text-align: center;
-  animation: fadeIn 0.6s ease forwards;
-}
-
-/* Fade-in animation for errors and success */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+  .signin-form input,
+  .signin-form select {
+    font-size: 14px;
   }
-  to {
-    opacity: 1;
+
+  .signin-btn {
+    font-size: 14px;
   }
-}
-
-/* Login Text */
-.login-text {
-  margin-top: 1.8rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.login-link {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.login-link:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-/* Submit button with animation */
-button {
-  width: 100%;
-  padding: 0.8rem 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.03);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* Loader spinner inside button */
-.loader {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  border: 3px solid white;
-  border-top: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  vertical-align: middle;
-  margin: 0 auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
 }

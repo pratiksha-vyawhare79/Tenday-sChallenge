@@ -1,5 +1,5 @@
-// =============================
-//  Import Required Packages
+
+// 📌 Import Required Packages
 // =============================
 const express = require("express");
 const cors = require("cors");
@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 
 // =============================
-// App Config
+// 📌 Initialize App
 // =============================
 const app = express();
 const PORT = 5000;
@@ -16,145 +16,129 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // =============================
-//  MySQL Database Connection
+// 📌 MySQL Connection
 // =============================
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "klH.75384",  // Your MySQL password here
-  database: "tenday3"     //  Make sure this database exists
+  password: "klH.75384", // <-- your MySQL password
+  database: "tenday4",
 });
 
 db.connect((err) => {
   if (err) {
-    console.error(" MySQL connection failed:", err);
-    process.exit(1);
+    console.error("❌ Database connection failed:", err);
   } else {
-    console.log(" Connected to MySQL Database: tenday3");
+    console.log("✅ Connected to MySQL database (tenday4)");
   }
 });
 
 // =============================
-// SIGNUP — Insert into teacher + users
+// 📌 API ROUTES
 // =============================
+
+// ✅ POST - Register Teacher & User
 app.post("/api/teacher", (req, res) => {
-  const {
-    name,
-    email,
-    password,
-    confirmPassword,
-    gender,
-    subject,
-    experience,
-    qualification
-  } = req.body;
+  const { name, email, password, gender, subject, experience, qualification } = req.body;
 
-  //  Basic validation
-  if (
-    !name ||
-    !email ||
-    !password ||
-    !confirmPassword ||
-    !gender ||
-    !subject ||
-    !experience ||
-    !qualification
-  ) {
-    return res.status(400).json({ error: "All fields are required." });
+  if (!name || !email || !password || !gender || !subject || !experience || !qualification) {
+    return res.status(400).json({ error: "All fields are required" });
   }
 
-  if (password !== confirmPassword) {
-    return res.status(400).json({ error: "Passwords do not match." });
-  }
-
-  //  Insert into teacher table
   const teacherSql = `
     INSERT INTO teacher (name, email, password, gender, subject, experience, qualification)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
-  const teacherValues = [name, email, password, gender, subject, experience, qualification];
 
-  db.query(teacherSql, teacherValues, (err, teacherResult) => {
-    if (err) {
-      console.error(" Error inserting into teacher table:", err);
-      if (err.code === "ER_DUP_ENTRY") {
-        return res.status(400).json({ error: "Email already registered." });
+  db.query(
+    teacherSql,
+    [name, email, password, gender, subject, experience, qualification],
+    (teacherErr, teacherResult) => {
+      if (teacherErr) {
+        if (teacherErr.code === "ER_DUP_ENTRY") {
+          return res.status(400).json({ error: "Email already exists in teacher table" });
+        }
+        console.error("❌ Error inserting into teacher table:", teacherErr);
+        return res.status(500).json({ error: "Database error inserting teacher" });
       }
-      return res.status(500).json({ error: "Database error (teacher)." });
+
+      console.log("✅ Teacher inserted:", teacherResult.insertId);
+
+      const userSql = `INSERT INTO users (email, password) VALUES (?, ?)`;
+      db.query(userSql, [email, password], (userErr) => {
+        if (userErr) {
+          if (userErr.code === "ER_DUP_ENTRY") {
+            console.warn("⚠️ User already exists in users table.");
+            return res.json({ message: "Teacher added, user already exists" });
+          }
+          console.error("❌ Error inserting user:", userErr);
+          return res.status(500).json({ error: "Database error inserting user" });
+        }
+
+        console.log("✅ User inserted successfully");
+        res.json({ message: "Teacher and user registered successfully" });
+      });
     }
-
-    console.log("Teacher data inserted:", teacherResult.insertId);
-
-    // Insert into users table after teacher insert succeeds
-    const userSql = "INSERT INTO users (email, password) VALUES (?, ?)";
-    const userValues = [email, password];
-
-    db.query(userSql, userValues, (err2, userResult) => {
-      if (err2) {
-        console.error("Error inserting into users table:", err2);
-        return res.status(500).json({ error: "Database error (users)." });
-      }
-
-      console.log(" User data inserted:", userResult.insertId);
-      res.status(200).json({ message: "Teacher registered successfully!" });
-    });
-  });
+  );
 });
 
-// =============================
-// 🔐 LOGIN — Verify from users table
-// =============================
-app.post("/login", (req, res) => {
+// ✅ POST - Login
+app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password required." });
-  }
 
   const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
   db.query(sql, [email, password], (err, results) => {
     if (err) {
       console.error("❌ Login query error:", err);
-      return res.status(500).json({ error: "Database error." });
+      return res.status(500).json({ error: "Database error" });
     }
 
-    if (results.length > 0) {
-      res.status(200).json({ message: "Login successful!" });
-    } else {
-      res.status(401).json({ error: "Invalid email or password." });
+    if (results.length === 0) {
+      return res.status(401).json({ error: "Invalid email or password" });
     }
+
+    res.json({ message: "Login successful", user: results[0] });
   });
 });
 
-// =============================
-// 📋 GET All Teachers
-// =============================
-app.get("/api/teacher", (req, res) => {
-  db.query("SELECT * FROM teacher", (err, results) => {
+// ✅ GET - Teacher by Email
+app.get("/api/teacher/:email", (req, res) => {
+  const email = req.params.email;
+  const sql = "SELECT * FROM teacher WHERE email = ?";
+
+  db.query(sql, [email], (err, results) => {
     if (err) {
-      console.error("❌ Fetch teacher error:", err);
-      return res.status(500).json({ error: "Database error." });
+      console.error("❌ Error fetching teacher:", err);
+      return res.status(500).json({ error: "Database error" });
     }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Teacher not found" });
+    }
+
+    res.json(results[0]);
+  });
+});
+
+// ✅ GET - All Teachers (🔥 Fixed for Home Page)
+app.get("/api/teachers", (req, res) => {
+  // 🔥 Fixed: Use SELECT * to match actual table structure (no hardcoded 'id')
+  const sql = "SELECT * FROM teacher";
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("❌ Error fetching teachers:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    console.log("📤 Sending teachers:", results.length, "records");
     res.json(results);
   });
 });
 
 // =============================
-// 📋 GET All Users
-// =============================
-app.get("/api/users", (req, res) => {
-  db.query("SELECT * FROM users", (err, results) => {
-    if (err) {
-      console.error("❌ Fetch users error:", err);
-      return res.status(500).json({ error: "Database error." });
-    }
-    res.json(results);
-  });
-});
-
-// =============================
-// 🚀 Start the Server
+// 📌 Start Server
 // =============================
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+}); 

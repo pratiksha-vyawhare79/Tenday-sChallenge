@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignIn.css";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,33 +15,23 @@ export default function SignIn() {
     qualification: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+  const [teachers, setTeachers] = useState([]);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/teacher")
+      .then((res) => res.json())
+      .then((data) => setTeachers(data))
+      .catch((err) => console.error("Fetch Error:", err));
+  }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    if (!formData.password.trim()) newErrors.password = "Password is required";
-    if (formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
-    if (!formData.gender) newErrors.gender = "Gender is required";
-    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formData.experience.trim()) newErrors.experience = "Experience is required";
-    if (!formData.qualification.trim()) newErrors.qualification = "Qualification is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    setMessage("");
 
     try {
       const response = await fetch("http://localhost:5000/api/teacher", {
@@ -48,76 +40,51 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
-
+      const data = await response.json();
       if (response.ok) {
-        setSuccessMessage(" Registration successful!");
-        setFormData({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          gender: "",
-          subject: "",
-          experience: "",
-          qualification: "",
-        });
-        setErrors({});
+        setMessage("Registration successful!");
+        setTimeout(() => navigate("/Login"), 1200);
       } else {
-        setSuccessMessage("");
-        alert(result.error || " Something went wrong.");
+        setMessage(` ${data.error || "Something went wrong."}`);
       }
     } catch (err) {
-      console.error("Error:", err);
-      alert(" Failed to connect to API");
+      setMessage("Server error. Please check backend.");
     }
   };
 
   return (
     <div className="signin-container">
-      <h2>Teacher Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="name" type="text" placeholder="Name" value={formData.name} onChange={handleChange} />
-        {errors.name && <p className="error">{errors.name}</p>}
-
-        <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        {errors.email && <p className="error">{errors.email}</p>}
-
-        <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
-        {errors.password && <p className="error">{errors.password}</p>}
-
-        <input name="confirmPassword" type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} />
-        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-
-        <div className="gender-group">
-          <label>
-            <input type="radio" name="gender" value="male" checked={formData.gender === "male"} onChange={handleChange} />
-            Male
-          </label>
-          <label>
-            <input type="radio" name="gender" value="female" checked={formData.gender === "female"} onChange={handleChange} />
-            Female
-          </label>
-        </div>
-        {errors.gender && <p className="error">{errors.gender}</p>}
-
-        <input name="subject" type="text" placeholder="Subject" value={formData.subject} onChange={handleChange} />
-        {errors.subject && <p className="error">{errors.subject}</p>}
-
-        <input name="experience" type="number" placeholder="Experience (years)" value={formData.experience} onChange={handleChange} />
-        {errors.experience && <p className="error">{errors.experience}</p>}
-
-        <input name="qualification" type="text" placeholder="Qualification" value={formData.qualification} onChange={handleChange} />
-        {errors.qualification && <p className="error">{errors.qualification}</p>}
-
-        <button type="submit">Sign Up</button>
+      <h2 className="signin-title">Teacher Registration</h2>
+      <form onSubmit={handleSubmit} className="signin-form">
+        <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
+        <select name="gender" onChange={handleChange} required>
+          <option value="">Select Gender</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="text" name="subject" placeholder="Subject" onChange={handleChange} required />
+        <input type="number" name="experience" placeholder="Experience (Years)" onChange={handleChange} required />
+        <input type="text" name="qualification" placeholder="Qualification" onChange={handleChange} required />
+        <button type="submit" className="signin-btn">Sign Up</button>
       </form>
 
-      {successMessage && <p className="success">{successMessage}</p>}
+      {message && <p className="signin-message">{message}</p>}
 
-      <p className="login-text">
-        Already have an account? <a href="/Login">Log in</a>
-      </p>
+      <div className="redirect-text">
+        Already have an account?{" "}
+        <Link to="/Login" className="link-text">Login</Link>
+      </div>
+
+      <h3>Registered Teachers (GET):</h3>
+      <ul>
+        {teachers.map((t) => (
+          <li key={t.id}>{t.name} - {t.subject}</li>
+        ))}
+      </ul>
     </div>
   );
 }

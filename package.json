@@ -20,5 +20,13 @@
   "devDependencies": {
     "tailwindcss": "^3.4.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratiksha-vyawhare79/Tenday-sChallenge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pratiksha-vyawhare79/Tenday-sChallenge/issues"
+  },
+  "homepage": "https://github.com/pratiksha-vyawhare79/Tenday-sChallenge#readme",
   "description": ""
 }

@@ -1,18 +1,19 @@
-/* ✅ Full-page container with image background */
+/*  Full-page background */
 .welcome-container {
   min-height: 100vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   position: relative;
   overflow: hidden;
   animation: fadeIn 2s ease-in-out;
+  padding-top: 2rem;
 }
 
-/* ✅ Overlay to make text readable */
+/*  Overlay */
 .welcome-container::before {
   content: "";
   position: absolute;
@@ -24,7 +25,38 @@
   z-index: 1;
 }
 
-/* ✅ Box on top of background */
+/*  Header Section */
+.welcome-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.welcome-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.app-name {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.app-subtitle {
+  color: black;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+  letter-spacing: 1px;
+}
+
+/*  Center Box */
 .welcome-box {
   position: relative;
   z-index: 2;
@@ -39,20 +71,22 @@
   width: 90%;
 }
 
-/* Title */
 .welcome-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   animation: glow 2s infinite alternate;
 }
 
-/* Subtitle */
+.welcome-title span {
+  color: #ffc371;
+}
+
 .welcome-subtitle {
   font-size: 1.2rem;
   margin-bottom: 2rem;
 }
 
-/* Button */
+/*  Button */
 .welcome-button {
   background: linear-gradient(135deg, #ff5f6d, #ffc371);
   color: #fff;
@@ -68,7 +102,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* ✨ Animations */
+/*  Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -97,3 +131,13 @@
     text-shadow: 0 0 20px #ff5f6d, 0 0 40px #ff5f6d;
   }
 }
+.welcome-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;        
+  border: 2px solid #fff;  
+  background-color: #fff;    
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+

@@ -15,7 +15,7 @@
 
 /*  Title */
 .signin-title {
-  color: #ffffff;
+  color: #130202;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -75,7 +75,7 @@
   transform: translateY(-2px);
 }
 
-/* 💬 Message display */
+/*  Message display */
 .signin-message {
   margin-top: 15px;
   font-size: 15px;
@@ -87,7 +87,7 @@
   animation: fadeIn 0.5s ease;
 }
 
-/* 🔗 Redirect text */
+/*  Redirect text */
 .redirect-text {
   margin-top: 15px;
   font-size: 14px;
@@ -106,7 +106,7 @@
   color: #ffe2d1;
 }
 
-/* 🧑 Teacher list */
+/*  Teacher list */
 .signin-container h3 {
   color: #ffffff;
   margin-top: 25px;
@@ -165,7 +165,7 @@
   }
 }
 
-/* ✨ Animations */
+/*  Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -186,7 +186,7 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* 📱 Responsive */
+/*  Responsive */
 @media (max-width: 480px) {
   .signin-title {
     font-size: 24px;
@@ -205,3 +205,46 @@
     font-size: 14px;
   }
 }
+/* ✅ Navbar (same as Login) */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0a4d3c; /* Bottle green */
+  margin: 0;
+  line-height: 1.2;
+}
+
+.app-subtitle {
+  color: black;
+  font-size: 0.9rem;
+  margin: 2px 0 0 0;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+

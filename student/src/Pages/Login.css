@@ -1,4 +1,4 @@
-/* 🌸 Container */
+/*  Container */
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -12,9 +12,9 @@
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* 📝 Title */
+/* Title */
 .login-title {
-  color: #7b757a;
+  color: black;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -24,7 +24,7 @@
   text-transform: uppercase;
 }
 
-/* 🧾 Form */
+/* Form */
 .login-form {
   background-color: #ffffff;
   padding: 30px;
@@ -38,7 +38,7 @@
   animation: slideUp 0.8s ease forwards;
 }
 
-/* ✍️ Inputs */
+/*  Inputs */
 .login-form input {
   padding: 12px 14px;
   font-size: 15px;
@@ -53,7 +53,7 @@
   box-shadow: 0 0 6px rgba(217, 108, 108, 0.5);
 }
 
-/* 🚪 Button */
+/*  Button */
 .login-btn {
   background-color: #b84a4a; /* Dark peach */
   color: white;
@@ -72,7 +72,7 @@
   transform: translateY(-2px);
 }
 
-/* 💬 Message */
+/* Message */
 .login-message {
   margin-top: 10px;
   font-size: 15px;
@@ -84,7 +84,7 @@
   animation: fadeIn 0.5s ease;
 }
 
-/* 🔗 Redirect text */
+/*  Redirect text */
 .redirect-text {
   margin-top: 10px;
   font-size: 14px;
@@ -103,30 +103,12 @@
   text-decoration: underline;
 }
 
-/* 👤 User details box */
-.user-details {
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 15px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
-  animation: fadeInUp 0.5s ease;
-}
 
-.user-details h3 {
-  margin-bottom: 10px;
-  color: #ffffff;
-  text-align: center;
-}
 
-.user-details p {
-  margin: 4px 0;
-  font-size: 14px;
-}
 
-/* 🌿 Floating background animation */
+
+
+/*  Floating background animation */
 .login-container::before,
 .login-container::after {
   content: "";
@@ -155,7 +137,7 @@
   100% { transform: translateY(-20px) translateX(20px); }
 }
 
-/* 🌟 Animations */
+/*  Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -176,7 +158,7 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* 📱 Responsive */
+/*  Responsive */
 @media (max-width: 480px) {
   .login-title {
     font-size: 22px;
@@ -195,7 +177,7 @@
   }
 }
 
-/* ✨ Make email & password boxes larger */
+/*  Make email & password boxes larger */
 .input-group {
   display: flex;
   align-items: center;
@@ -204,15 +186,15 @@
   border-radius: 6px;
   padding: 0 12px;
   width: 90%;
-  max-width: 450px;   /* Increased width */
-  margin: 0 auto;     /* Center align */
+  max-width: 450px;   
+  margin: 0 auto;     
 }
 
 .input-group input {
   border: none;
   flex: 1;
-  padding: 14px 0;     /* Bigger height */
-  font-size: 16px;     /* Bigger text */
+  padding: 14px 0;     
+  font-size: 16px;     
   outline: none;
   background: transparent;
 }
@@ -220,4 +202,113 @@
 .input-group .input-emoji {
   font-size: 20px;
   margin-right: 10px;
+}
+/*  Password group styling */
+.password-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-group input {
+  flex: 1;
+  padding-right: 40px; /* space for the eye icon */
+}
+
+.eye-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: #555;
+  transition: transform 0.2s;
+}
+
+.eye-button:hover {
+  transform: scale(1.1);
+}
+/* Navbar copied from Home.css for consistency */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background:white;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin-right: 10px;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+/* Navbar - Match Home Page Height & Style */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px;              
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  width: 45px;                    /* ↓ Smaller logo */
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0a4d3c;                
+  margin: 0;
+  line-height: 1.2;            
+}
+
+.app-subtitle {
+  color: black;
+  font-size: 0.9rem;
+  margin: 2px 0 0 0;            
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }

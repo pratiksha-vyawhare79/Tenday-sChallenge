@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignIn.css";
+import logo from "../assets/Logo.png";  //Reuse same logo as Login
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function SignIn() {
   const [teachers, setTeachers] = useState([]);
   const [message, setMessage] = useState("");
 
-  // ✅ Fetch all registered teachers (GET)
+  //  Fetch all registered teachers (GET)
   useEffect(() => {
     fetch("http://localhost:5000/api/teacher")
       .then((res) => res.json())
@@ -26,12 +27,12 @@ export default function SignIn() {
       .catch((err) => console.error("Fetch Error:", err));
   }, []);
 
-  // ✅ Handle form change
+  //  Handle form change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Handle form submit
+  //  Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -56,44 +57,58 @@ export default function SignIn() {
   };
 
   return (
-    <div className="signin-container">
-      <h2 className="signin-title">📝 Teacher Registration</h2>
+    <div className="signin-page">
+      {/*  Navbar (Same as Login) */}
+      <nav className="navbar">
+        <div className="navbar-left">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <div>
+            <h2 className="navbar-title">MENTOR HUB</h2>
+            <p className="app-subtitle">Teacher Management System</p>
+          </div>
+        </div>
+      </nav>
 
-      <form onSubmit={handleSubmit} className="signin-form">
-        <input type="text" name="name" placeholder="👤 Full Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="📧 Email Address" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="🔑 Password" onChange={handleChange} required />
-        <input type="password" name="confirmPassword" placeholder="✅ Confirm Password" onChange={handleChange} required />
+      {/* Registration Form Section */}
+      <div className="signin-container">
+        <h2 className="signin-title">📝 Teacher Registration</h2>
 
-        <select name="gender" onChange={handleChange} required>
-          <option value="">⚧️ Select Gender</option>
-          <option value="female">👩 Female</option>
-          <option value="male">👨 Male</option>
-          <option value="other">🌈 Other</option>
-        </select>
+        <form onSubmit={handleSubmit} className="signin-form">
+          <input type="text" name="name" placeholder="👤 Full Name" onChange={handleChange} required />
+          <input type="email" name="email" placeholder="📧 Email Address" onChange={handleChange} required />
+          <input type="password" name="password" placeholder="🔑 Password" onChange={handleChange} required />
+          <input type="password" name="confirmPassword" placeholder="✅ Confirm Password" onChange={handleChange} required />
 
-        <input type="text" name="subject" placeholder="📚 Subject" onChange={handleChange} required />
-        <input type="number" name="experience" placeholder="🧠 Experience (Years)" onChange={handleChange} required />
-        <input type="text" name="qualification" placeholder="🎓 Qualification" onChange={handleChange} required />
+          <select name="gender" onChange={handleChange} required>
+            <option value="">⚧️ Select Gender</option>
+            <option value="female">👩 Female</option>
+            <option value="male">👨 Male</option>
+            <option value="other">🌈 Other</option>
+          </select>
 
-        <button type="submit" className="signin-btn">🚀 Sign Up</button>
-      </form>
+          <input type="text" name="subject" placeholder="📚 Subject" onChange={handleChange} required />
+          <input type="number" name="experience" placeholder="🧠 Experience (Years)" onChange={handleChange} required />
+          <input type="text" name="qualification" placeholder="🎓 Qualification" onChange={handleChange} required />
 
-      {message && <p className="signin-message">{message}</p>}
+          <button type="submit" className="signin-btn"> Sign Up</button>
+        </form>
 
-      <div className="redirect-text">
-        Already have an account?{" "}
-        <Link to="/Login" className="link-text">🔐 Login</Link>
+        {message && <p className="signin-message">{message}</p>}
+
+        <div className="redirect-text">
+          Already have an account?{" "}
+          <Link to="/Login" className="link-text">🔐 Login</Link>
+        </div>
+
+        <h3>Registered Teachers:</h3>
+        <ul>
+          {teachers.map((t) => (
+            <li key={t.id}>
+              {t.name} — {t.subject}
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <h3>👩‍🏫 Registered Teachers:</h3>
-      <ul>
-        {teachers.map((t) => (
-          <li key={t.id}>
-            {t.name} — {t.subject}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

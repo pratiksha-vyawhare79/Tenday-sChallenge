@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
+import homeBg from "../assets/Home.jpg"; // Import background image
 
 export default function Home() {
   const [teachers, setTeachers] = useState([]);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
   const navigate = useNavigate();
 
-  //  Redirect if not logged in
+  // Redirect if not logged in
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
     if (!userEmail) {
       navigate("/Login");
     }
-  }, [navigate]); // ✅ Included navigate to fix ESLint warning
+  }, [navigate]);
 
-  // ✅ Fetch teachers data
+  //  Fetch teachers from backend
   useEffect(() => {
     fetch("http://localhost:5000/api/teachers")
       .then((res) => res.json())
@@ -22,19 +24,19 @@ export default function Home() {
       .catch((err) => console.error("Error fetching teachers:", err));
   }, []);
 
-  // ✅ Logout function
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("userEmail");
     navigate("/Login");
   };
 
-  // ✏️ Edit handler
+  // Edit
   const handleEdit = (teacher) => {
     console.log("Edit clicked for:", teacher);
-    // You can open a modal or navigate to an edit page here
+    // navigate(`/edit/${teacher.id}`);
   };
 
-  // 🗑️ Delete handler
+  //  Delete
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this teacher?")) {
       fetch(`http://localhost:5000/api/teachers/${id}`, {
@@ -51,26 +53,43 @@ export default function Home() {
     }
   };
 
+  // Show Details Popup
+  const handleViewDetails = (teacher) => {
+    setSelectedTeacher(teacher);
+  };
+
+  //  Close Popup
+  const closePopup = () => {
+    setSelectedTeacher(null);
+  };
+
   return (
-    <div className="home-container">
+    <div
+      className="home-container"
+      style={{
+        backgroundImage: `linear-gradient(135deg, rgba(0, 98, 65, 0.9), rgba(0, 158, 96, 0.9)), url(${homeBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      {/*  Header */}
       <div className="home-header">
-        <h1>👩‍🏫 Teachers List</h1>
+        <h1>Teachers List</h1>
         <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>
       </div>
 
+      {/* Teachers Table */}
       {teachers.length > 0 ? (
         <table className="teacher-table">
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Email</th>
               <th>Subject</th>
-              <th>Experience</th>
-              <th>Qualification</th>
-              <th>Actions</th> {/* ✅ New column */}
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -78,16 +97,10 @@ export default function Home() {
               <tr key={t.id}>
                 <td>{t.id}</td>
                 <td>{t.name}</td>
-                <td>{t.email}</td>
                 <td>{t.subject}</td>
-                <td>{t.experience}</td>
-                <td>{t.qualification}</td>
                 <td>
                   <div className="action-buttons">
-                    <button
-                      className="edit-btn"
-                      onClick={() => handleEdit(t)}
-                    >
+                    <button className="edit-btn" onClick={() => handleEdit(t)}>
                       Edit
                     </button>
                     <button
@@ -95,6 +108,12 @@ export default function Home() {
                       onClick={() => handleDelete(t.id)}
                     >
                       Delete
+                    </button>
+                    <button
+                      className="details-btn"
+                      onClick={() => handleViewDetails(t)}
+                    >
+                      Details
                     </button>
                   </div>
                 </td>
@@ -104,6 +123,36 @@ export default function Home() {
         </table>
       ) : (
         <p className="no-data">No data available</p>
+      )}
+
+      {/* Popup Box */}
+      {selectedTeacher && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+            <h2>Teacher Details</h2>
+            <p>
+              <strong>ID:</strong> {selectedTeacher.id}
+            </p>
+            <p>
+              <strong>Name:</strong> {selectedTeacher.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedTeacher.email}
+            </p>
+            <p>
+              <strong>Subject:</strong> {selectedTeacher.subject}
+            </p>
+            <p>
+              <strong>Experience:</strong> {selectedTeacher.experience}
+            </p>
+            <p>
+              <strong>Qualification:</strong> {selectedTeacher.qualification}
+            </p>
+            <button className="close-btn" onClick={closePopup}>
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

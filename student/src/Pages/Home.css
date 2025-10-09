@@ -1,28 +1,26 @@
-/* 🌸 Home Page Container */
+/*  Home Page Container */
 .home-container {
   min-height: 100vh;
   width: 100%;
-  padding: 20px;
-  max-width: 100%;
-  margin: 0;
+  padding: 30px 20px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #ff9966, #ff5e62); /* ✅ Full solid peach gradient */
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   position: relative;
   overflow: hidden;
+    background: linear-gradient(135deg, #3e5151, #decba4); 
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* ✨ Floating background circles */
+/* Floating background circles */
 .home-container::before,
 .home-container::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2); /* Slightly transparent for effect */
+  background: rgba(255, 255, 255, 0.15);
   animation: float 8s infinite ease-in-out alternate;
   z-index: 0;
 }
@@ -30,32 +28,27 @@
 .home-container::before {
   width: 220px;
   height: 220px;
-  top: 15%;
-  left: 20%;
+  top: 10%;
+  left: 15%;
 }
 
 .home-container::after {
   width: 160px;
   height: 160px;
-  bottom: 15%;
+  bottom: 10%;
   right: 15%;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px) translateX(0px); }
-  100% { transform: translateY(-20px) translateX(20px); }
-}
-
-/* 🧾 Header */
+/* Header */
 .home-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  max-width: 900px;
+  width: 90%;
+  max-width: 1000px;
   margin-bottom: 25px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
   border-radius: 12px;
   backdrop-filter: blur(8px);
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
@@ -66,15 +59,15 @@
 
 .home-header h1 {
   font-size: 28px;
-  color: #fff;
+  color: #ffffff;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-/* 🚪 Logout Button */
+/*  Logout Button */
 .logout-btn {
-  background-color: #ff7e5f;
-  color: white;
+  background-color: #ffffff;
+  color: #333;
   border: none;
   padding: 10px 18px;
   border-radius: 6px;
@@ -82,21 +75,21 @@
   font-size: 15px;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s;
-  z-index: 1;
 }
 
 .logout-btn:hover {
-  background-color: #de6262;
+  background-color: #f0f0f0;
   transform: translateY(-2px);
 }
 
-/* 📋 Teachers Table */
+/*  Teacher Table */
 .teacher-table {
-  width: 100%;
-  max-width: 900px;
+  width: 90%;
+  max-width: 1000px;
   border-collapse: collapse;
   margin-top: 20px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
@@ -106,12 +99,13 @@
 
 .teacher-table th,
 .teacher-table td {
-  padding: 12px 10px;
+  padding: 14px 12px;
   text-align: center;
+  color: #ffffff;
 }
 
 .teacher-table th {
-  background-color: #ff7e5f;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-size: 15px;
   text-transform: uppercase;
@@ -119,14 +113,14 @@
 }
 
 .teacher-table tr:nth-child(even) {
-  background-color: rgba(255, 184, 140, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .teacher-table tr:hover {
-  background-color: rgba(255, 126, 95, 0.2);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* 🚨 No Data Message */
+/*  No Data */
 .no-data {
   text-align: center;
   color: #fff;
@@ -139,7 +133,53 @@
   z-index: 1;
 }
 
-/* ✨ Animations */
+/*  Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn,
+.details-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.edit-btn {
+  background-color: #28a745;
+}
+
+.edit-btn:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.details-btn {
+  background-color: #3498db;
+}
+
+.details-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/*  Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -155,7 +195,12 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* 📱 Responsive */
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+
+/*  Responsive */
 @media (max-width: 600px) {
   .home-header {
     flex-direction: column;
@@ -167,50 +212,14 @@
     font-size: 22px;
   }
 
-  .logout-btn {
-    font-size: 14px;
-    padding: 8px 14px;
-  }
-
   .teacher-table th,
   .teacher-table td {
     font-size: 13px;
     padding: 8px;
   }
-}
 
-/* ✏️ Edit & 🗑️ Delete Buttons */
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.edit-btn,
-.delete-btn {
-  padding: 6px 12px;
-  font-size: 13px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #fff;
-  transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.edit-btn {
-  background-color: #4caf50; /* Green */
-}
-
-.edit-btn:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
-}
-
-.delete-btn {
-  background-color: #e74c3c; /* Red */
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
+  .logout-btn {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
 }

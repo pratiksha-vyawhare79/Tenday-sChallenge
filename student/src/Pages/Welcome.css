@@ -1,0 +1,99 @@
+/* ✅ Full-page container with image background */
+.welcome-container {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* ✅ Overlay to make text readable */
+.welcome-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* ✅ Box on top of background */
+.welcome-box {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 15px;
+  animation: slideUp 1.5s ease-out;
+  max-width: 600px;
+  width: 90%;
+}
+
+/* Title */
+.welcome-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: glow 2s infinite alternate;
+}
+
+/* Subtitle */
+.welcome-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Button */
+.welcome-button {
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.welcome-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ✨ Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ffc371, 0 0 20px #ffc371;
+  }
+  to {
+    text-shadow: 0 0 20px #ff5f6d, 0 0 40px #ff5f6d;
+  }
+}

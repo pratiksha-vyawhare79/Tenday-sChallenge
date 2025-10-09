@@ -14,7 +14,7 @@
 
 /* 📝 Title */
 .login-title {
-  color: #ffffff;
+  color: #7b757a;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -24,7 +24,7 @@
   text-transform: uppercase;
 }
 
-/* 📋 Form */
+/* 🧾 Form */
 .login-form {
   background-color: #ffffff;
   padding: 30px;
@@ -38,7 +38,7 @@
   animation: slideUp 0.8s ease forwards;
 }
 
-/* ✍ Inputs */
+/* ✍️ Inputs */
 .login-form input {
   padding: 12px 14px;
   font-size: 15px;
@@ -53,7 +53,7 @@
   box-shadow: 0 0 6px rgba(217, 108, 108, 0.5);
 }
 
-/* 🚀 Button */
+/* 🚪 Button */
 .login-btn {
   background-color: #b84a4a; /* Dark peach */
   color: white;
@@ -88,12 +88,12 @@
 .redirect-text {
   margin-top: 10px;
   font-size: 14px;
-  color: #555;
+  color: #000000;   /* ✅ Black for better visibility */
   text-align: center;
 }
 
 .link-text {
-  color: #b84a4a;
+  color: #000000;   /* ✅ Black link */
   font-weight: 600;
   text-decoration: none;
   margin-left: 4px;
@@ -126,7 +126,7 @@
   font-size: 14px;
 }
 
-/* 🌟 Floating background animation */
+/* 🌿 Floating background animation */
 .login-container::before,
 .login-container::after {
   content: "";
@@ -155,7 +155,7 @@
   100% { transform: translateY(-20px) translateX(20px); }
 }
 
-/* ✨ Animations */
+/* 🌟 Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -193,4 +193,31 @@
   .login-btn {
     font-size: 14px;
   }
+}
+
+/* ✨ Make email & password boxes larger */
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 12px;
+  width: 90%;
+  max-width: 450px;   /* Increased width */
+  margin: 0 auto;     /* Center align */
+}
+
+.input-group input {
+  border: none;
+  flex: 1;
+  padding: 14px 0;     /* Bigger height */
+  font-size: 16px;     /* Bigger text */
+  outline: none;
+  background: transparent;
+}
+
+.input-group .input-emoji {
+  font-size: 20px;
+  margin-right: 10px;
 }

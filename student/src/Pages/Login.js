@@ -9,7 +9,7 @@ export default function Login() {
   const [message, setMessage] = useState("");
   const [userData, setUserData] = useState(null);
 
-  // ✅ Handle Login
+  // Handle Login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -34,12 +34,12 @@ export default function Login() {
         setMessage(`❌ ${data.error || "Invalid credentials"}`);
       }
     } catch (error) {
-      console.error("❌ Login error:", error);
-      setMessage("❌ Server error. Check backend.");
+      console.error("Login error:", error);
+      setMessage("⚠️ Server error. Check backend.");
     }
   };
 
-  // ✅ Fetch teacher details by email
+  // Fetch teacher details by email
   const fetchTeacherData = async (emailValue) => {
     try {
       const response = await fetch(`http://localhost:5000/api/teacher/${emailValue}`);
@@ -47,7 +47,7 @@ export default function Login() {
       if (response.ok) setUserData(data);
       else setUserData(null);
     } catch (error) {
-      console.error("❌ Error fetching teacher data:", error);
+      console.error(" Error fetching teacher data:", error);
       setUserData(null);
     }
   };
@@ -60,42 +60,48 @@ export default function Login() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
-        <h2 className="login-title">Teacher Login</h2>
+        <h2 className="login-title">👩‍🏫 Teacher Login</h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <span className="input-emoji">📧</span>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <span className="input-emoji">🔐</span>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
         <button type="submit" className="login-btn">
-          Login
+          🚪 Login
         </button>
 
         {message && <p className="login-message">{message}</p>}
 
         <div className="redirect-text">
-          Don't have an account?
-          <Link to="/SignIn" className="link-text"> Sign Up</Link>
+          Don’t have an account?
+          <Link to="/SignIn" className="link-text"> ✍️ Sign Up</Link>
         </div>
       </form>
 
       {userData && (
         <div className="user-details">
           <h3>👤 Logged in User Details:</h3>
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Subject:</strong> {userData.subject}</p>
+          <p><strong>📝 Name:</strong> {userData.name}</p>
+          <p><strong>📧 Email:</strong> {userData.email}</p>
+          <p><strong>📚 Subject:</strong> {userData.subject}</p>
         </div>
       )}
     </div>

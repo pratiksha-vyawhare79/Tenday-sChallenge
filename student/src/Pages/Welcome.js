@@ -27,7 +27,7 @@ export default function Welcome() {
         <p className="welcome-subtitle">
           Manage teachers efficiently with a smooth and friendly interface.
         </p>
-        <Link to="/signIn" className="welcome-button">
+        <Link to="/Login" className="welcome-button">
           Get Started
         </Link>
       </div>

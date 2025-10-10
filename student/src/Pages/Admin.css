@@ -1,0 +1,181 @@
+/* 🌿 Page Container */
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #d96c6c, #b84a4a); /* Dark peach gradient */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🌿 Navbar (White) */
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  background: white; /* ✅ changed from transparent blur to solid white */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* subtle shadow */
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ✅ Circular Logo (same as Home & SignIn) */
+.navbar-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;        /* makes it circular */
+  border: 2px solid #b84a4a; /* border matches page tone */
+  object-fit: cover;         /* keeps image clean */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-title {
+  font-size: 24px;
+  color: #0a4d3c; /* ✅ dark green to match your theme */
+  margin: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.app-subtitle {
+  font-size: 14px;
+  color: #333;
+  margin-top: -4px;
+}
+
+/* 🌿 Login Container */
+.login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding: 40px 45px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+/* 🌿 Input Groups */
+.input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.input-group input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  background: transparent;
+  font-size: 15px;
+}
+
+.input-emoji {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.password-group {
+  position: relative;
+}
+
+.eye-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.eye-button:hover {
+  opacity: 1;
+}
+
+/* 🌿 Buttons */
+.login-btn {
+  background-color: #9c3030; /* original dark red */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 5px;
+}
+
+.login-btn:hover {
+  background-color: #b03a3a;
+  transform: translateY(-2px);
+}
+
+/* ✅ Teacher Login Button (bottle green) */
+.login-btn:nth-of-type(2) {
+  background-color: #2d705a;
+}
+
+.login-btn:nth-of-type(2):hover {
+  background-color: #3b8b72;
+}
+
+/* 🌿 Message Text */
+.login-message {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* 🌿 Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🌿 Responsive Design */
+@media (max-width: 500px) {
+  .login-form {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .navbar-title {
+    font-size: 20px;
+  }
+
+  .navbar-logo {
+    width: 45px;
+    height: 45px;
+  }
+}

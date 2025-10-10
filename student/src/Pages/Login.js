@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      {/* Fixed Navbar layout (Title + Subtitle stacked like Welcome) */}
+      {/* ✅ Navbar (Logo + Title + Admin Button) */}
       <nav className="navbar">
         <div className="navbar-left">
           <img src={logo} alt="Logo" className="navbar-logo" />
@@ -51,9 +51,16 @@ export default function Login() {
             <p className="app-subtitle">Teacher Management System</p>
           </div>
         </div>
+
+        {/* ✅ Admin Button */}
+        <div className="navbar-right">
+          <button className="admin-btn" onClick={() => navigate("/Admin")}>
+            Admin Login
+          </button>
+        </div>
       </nav>
 
-      {/* Login Form */}
+      {/* ✅ Teacher Login Form */}
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">
           <h2 className="login-title">Teacher Login</h2>
@@ -89,14 +96,16 @@ export default function Login() {
           </div>
 
           <button type="submit" className="login-btn">
-             Login
+            Login
           </button>
 
           {message && <p className="login-message">{message}</p>}
 
           <div className="redirect-text">
             Don’t have an account?
-            <Link to="/SignIn" className="link-text"> ✍️ Sign Up</Link>
+            <Link to="/SignIn" className="link-text">
+              ✍️ Sign Up
+            </Link>
           </div>
         </form>
       </div>

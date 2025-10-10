@@ -230,85 +230,116 @@
 .eye-button:hover {
   transform: scale(1.1);
 }
-/* Navbar copied from Home.css for consistency */
+/* ✅ Navbar - Full width & properly contained */
 .navbar {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background:white;
+  flex-wrap: wrap;                    /* ✅ prevents overflow */
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #0a4d3c;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-sizing: border-box;             /* ✅ keeps everything inside */
 }
 
+/* ✅ Left section (logo + text) */
 .navbar-left {
   display: flex;
   align-items: center;
+  gap: 18px;
+  flex-shrink: 1;                     /* ✅ prevents left section from expanding too much */
+  min-width: 0;
 }
 
+/* ✅ Circular logo */
 .navbar-logo {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 3px solid white;
-  margin-right: 10px;
-}
-
-.navbar-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.profile-icon {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-/* Navbar - Match Home Page Height & Style */
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 8px 20px;              
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 10;
-}
-
-.navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.navbar-logo {
-  width: 45px;                    /* ↓ Smaller logo */
-  height: 45px;
-  border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid #0a4d3c;
   object-fit: cover;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
+/* ✅ Title + Subtitle */
 .navbar-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #0a4d3c;                
+  color: #0a4d3c;
   margin: 0;
-  line-height: 1.2;            
+  line-height: 1.1;
+  white-space: nowrap;                /* ✅ prevents text wrapping weirdly */
 }
 
 .app-subtitle {
-  color: black;
-  font-size: 0.9rem;
-  margin: 2px 0 0 0;            
-  letter-spacing: 0.5px;
+  color: #333;
+  font-size: 0.95rem;
+  margin: 2px 0 0 0;
+  letter-spacing: 0.4px;
   font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ✅ Right-side (Admin Button) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  min-width: 160px;                   /* ✅ ensures button always visible */
+}
+
+.admin-btn {
+  background-color: #2d705a;          /* bottle green */
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;                /* ✅ prevents button from breaking */
+}
+
+.admin-btn:hover {
+  background-color: #3b8b72;
+  transform: translateY(-2px);
+}
+
+/* ✅ Responsive design for smaller screens */
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+  .navbar-left {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .admin-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .navbar-logo {
+    width: 55px;
+    height: 55px;
+  }
 }

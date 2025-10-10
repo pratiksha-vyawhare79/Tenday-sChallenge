@@ -36,18 +36,18 @@ export default function Home() {
     fetchTeachers();
   }, []);
 
-  //  Logout
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("userEmail");
     navigate("/Login");
   };
 
-  //  Open edit modal
+  // Open edit modal
   const handleEdit = (teacher) => {
     setEditTeacher({ ...teacher });
   };
 
-  //  Save edit changes
+  // Save edit changes
   const handleSaveEdit = () => {
     if (!editTeacher.name || !editTeacher.subject) {
       alert("Please fill all fields");
@@ -75,7 +75,7 @@ export default function Home() {
       .catch((err) => console.error("Error updating teacher:", err));
   };
 
-  //  Delete teacher
+  // Delete teacher
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this teacher?")) {
       fetch(`http://localhost:5000/api/teachers/${id}`, {
@@ -94,7 +94,7 @@ export default function Home() {
     setSelectedTeacher(teacher);
   };
 
-  //  Close modals
+  // Close modals
   const closeModal = () => {
     setSelectedTeacher(null);
     setEditTeacher(null);
@@ -111,7 +111,7 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      {/*  Navbar */}
+      {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-left">
           <img src={logo} alt="Logo" className="navbar-logo" />
@@ -129,7 +129,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/*  Teacher Table */}
+      {/* Teacher Table */}
       {teachers.length > 0 ? (
         <table className="teacher-table">
           <thead>
@@ -173,7 +173,7 @@ export default function Home() {
         <p className="no-data">No data available</p>
       )}
 
-      {/*  Details Modal */}
+      {/* Details Modal */}
       {selectedTeacher && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -184,19 +184,33 @@ export default function Home() {
               </button>
             </div>
             <div className="modal-body">
-              <p><strong>ID:</strong> {selectedTeacher.id}</p>
-              <p><strong>Name:</strong> {selectedTeacher.name}</p>
-              <p><strong>Email:</strong> {selectedTeacher.email}</p>
-              <p><strong>Gender:</strong> {selectedTeacher.gender}</p>
-              <p><strong>Subject:</strong> {selectedTeacher.subject}</p>
-              <p><strong>Experience:</strong> {selectedTeacher.experience}</p>
-              <p><strong>Qualification:</strong> {selectedTeacher.qualification}</p>
+              <p>
+                <strong>ID:</strong> {selectedTeacher.id}
+              </p>
+              <p>
+                <strong>Name:</strong> {selectedTeacher.name}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedTeacher.email}
+              </p>
+              <p>
+                <strong>Gender:</strong> {selectedTeacher.gender}
+              </p>
+              <p>
+                <strong>Subject:</strong> {selectedTeacher.subject}
+              </p>
+              <p>
+                <strong>Experience:</strong> {selectedTeacher.experience}
+              </p>
+              <p>
+                <strong>Qualification:</strong> {selectedTeacher.qualification}
+              </p>
             </div>
           </div>
         </div>
       )}
 
-      {/*  Edit Modal */}
+      {/* Edit Modal */}
       {editTeacher && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
